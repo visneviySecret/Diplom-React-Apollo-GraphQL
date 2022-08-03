@@ -3,7 +3,8 @@ const _ = require('lodash')
 const Book = require('../models/book')
 const Author = require('../models/author')
 const Person = require('../models/bank/person')
-const List = require('../models/bank/list')
+const Problem = require('../models/bank/problem/problem')
+const ExternalProblem = require('../models/bank/problem/externalProblem')
 
 const {
     GraphQLSchema,
@@ -14,7 +15,7 @@ const {
     GraphQLList,
     GraphQLNonNull,
 } = graphql;
-
+// Example
 const AuthorType = new GraphQLObjectType({
     name: 'Author',
     fields: () => ({
@@ -44,7 +45,7 @@ const BookType = new GraphQLObjectType({
         }
     })
 })
-
+// End of example
 const PersonType = new GraphQLObjectType({
     name: 'Person',
     fields: () => ({
@@ -56,16 +57,26 @@ const PersonType = new GraphQLObjectType({
     })
 })
 
-const ListType = new GraphQLObjectType({
-    name: 'List',
+const ProblemType = new GraphQLObjectType({
+    name: 'Problem',
     fields: () => ({
         id: { type: GraphQLID },
         projectId: { type: GraphQLID },
         title: { type: GraphQLString },
         description: { type: GraphQLString },
-        externalTitle: { type: GraphQLString }
     })
 })
+const ExternalType = new GraphQLObjectType({
+    name: 'External',
+    fields: () => ({
+        id: { type: GraphQLID },
+        projectID: { type: GraphQLID },
+        title: { type: GraphQLString },
+        description: { type: GraphQLString },
+        faq: { type: GraphQLString }
+    })
+})
+
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -84,12 +95,6 @@ const RootQuery = new GraphQLObjectType({
                 return Author.findById(args.id)
             }
         },
-        persons: {
-            type: new GraphQLList(PersonType),
-            resolve(parent, args) {
-                return Person.find({})
-            }
-        },
         books: {
             type: new GraphQLList(BookType),
             resolve(parent, args) {
@@ -100,6 +105,24 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(AuthorType),
             resolve(parent, args) {
                 return Author.find({})
+            }
+        },
+        persons: {
+            type: new GraphQLList(PersonType),
+            resolve(parent, args) {
+                return Person.find({})
+            }
+        },
+        problems: {
+            type: new GraphQLList(ProblemType),
+            resolve(parent, args) {
+                return Problem.find({})
+            }
+        },
+        externalProblems: {
+            type: new GraphQLList(ExternalType),
+            resolve(parent, args) {
+                return ExternalProblem.find({})
             }
         }
     }
@@ -183,7 +206,6 @@ const Mutation = new GraphQLObjectType({
                 )
             }
         },
-
         deletePerson: {
             type: PersonType,
             args: {
@@ -192,7 +214,28 @@ const Mutation = new GraphQLObjectType({
             resolve(parent, args) {
                 return Person.findByIdAndDelete(args.id)
             }
+        },
+        addExternalProblem: {
+            type: ExternalType,
+            type: PersonType,
+            args: {
+                id: { type: new GraphQLNonNull(GraphQLID) },
+                projectId: { type: new GraphQLNonNull(GraphQLID) },
+                title: { type: GraphQLString },
+                description: { type: GraphQLString },
+            },
+            resolve(parent, args) {
+                let problem = new Problem({
+                    id: args.id,
+                    projectId: args.projectId,
+                    title: args.title,
+                    description: args.description,
+                })
+                return problem.save()
+            }
+
         }
+
     }
 })
 
@@ -207,25 +250,9 @@ const Mutation = new GraphQLObjectType({
 //     }
 // })
 
-// const CrewType = new GraphQlObjectType({
-//     name: 'Crew',
-//     fields: () => ({
-//         id: { type: GraphQLString },
-//         name: { type: GraphQLString },
-//         quantity_of_persons: { type: GraphQLString },
-//     })
-// })
 
 // const StagesType = new GraphQlObjectType({
 //     name: 'Stages',
-//     fields: () => ({
-//         id: { type: GraphQLString },
-
-//     })
-// })
-
-// const ProblemsType = new GraphQlObjectType({
-//     name: 'Problems',
 //     fields: () => ({
 //         id: { type: GraphQLString },
 
