@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/diplom-react/static/css/main.e2022306.css",
+    "main.js": "/diplom-react/static/js/main.00ce0bd7.js",
+    "static/media/calendar.svg": "/diplom-react/static/media/calendar.381335ffe9dca70f9896.svg",
+    "static/media/Home button.svg": "/diplom-react/static/media/Home button.a52c83e340c029521bf26bf09df8ae7d.svg",
+    "static/media/trash.svg": "/diplom-react/static/media/trash.d2a48f078ae2cf74d03a71ef14ddcd59.svg",
+    "static/media/blue_info.svg": "/diplom-react/static/media/blue_info.b494e4af71f9332d360db21f4da27dec.svg",
+    "static/media/info.svg": "/diplom-react/static/media/info.1c2d815d5f88493f9a3b0becebfb0740.svg",
+    "static/media/cross.svg": "/diplom-react/static/media/cross.b68772ee1f34ff0b6c214b2c299e52ce.svg",
+    "index.html": "/diplom-react/index.html",
+    "static/media/mini_plus.svg": "/diplom-react/static/media/mini_plus.e1d8fbefc0c309ca675e7f7f4b341de5.svg",
+    "static/media/selector.svg": "/diplom-react/static/media/selector.01d4fa6516eee5783b27.svg",
+    "main.e2022306.css.map": "/diplom-react/static/css/main.e2022306.css.map",
+    "main.00ce0bd7.js.map": "/diplom-react/static/js/main.00ce0bd7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e2022306.css",
+    "static/js/main.00ce0bd7.js"
+  ]
+}
